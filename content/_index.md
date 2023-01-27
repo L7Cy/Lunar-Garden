@@ -1,5 +1,5 @@
 ---
-title: start page
+title: Home
 enableToc: false
 ---
 
