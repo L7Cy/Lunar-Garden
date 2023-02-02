@@ -3,7 +3,6 @@
 
 !/.gitignore
 !/.hugo_build.lock
-!/CODE_OF_CONDUCT.md
 !/config.toml
 !/LICENSE.txt
 !/README.md
