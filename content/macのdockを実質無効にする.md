@@ -1,6 +1,6 @@
 ---
 title: macのdockを実質無効にする
-tags: [tips,mac]
+tags: [2022/10/09]
 aliases: []
 ---
 
