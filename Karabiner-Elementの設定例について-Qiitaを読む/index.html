@@ -1,0 +1,1354 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="source: Karabiner-Elementの設定例について - Qiita author: s-show
+ Excerpt Karabiner-Elementsの各設定項目については、Karabiner-Elementsの各設定項目の内容についてでリファレンス的にまとめましたので、こちらの記事は、実現したい機能から設定ファイルの書き方を探せる（要は逆引き）&mldr;
+  この記事は最終更新日から3年以上が経過しています。
+投稿日 2017年10月08日
+更新日 2019年02月03日
+Karabiner-Elementsの各設定項目については、 Karabiner-Elementsの各設定項目の内容についてでリファレンス的にまとめましたので、こちらの記事は、実現したい機能から設定ファイルの書き方を探せる（要は逆引き）ような記事にしました。
+紹介する機能は、以下のとおりです。
+ &ldquo;control-M&#34;のような組み合わせを別の組み合わせに変換 &ldquo;command-P&#34;のような組み合わせを任意の単独キーに変換 &ldquo;F5&#34;や&#34;Escape&#34;等の単独のキーを&#34;control-O&#34;のような組み合わせに変換 特定のキーを無効化する（2018年12月10日追加） 任意のキーにマウスクリックを割り当てる 任意のキーにコマンド実行を割り当てる 1回のキータイプで複数回のキータイプを実現する 単独で押した場合とshift等と組み合わせた場合で違う変換を行う &ldquo;A&#34;を押しながら&#34;B&#34;を押したら&#34;C&#34;に変換する あるキーを押している間は他のキーの動作を変更する（2017年11月23日追加、2019年1月21日タイトル変更） キーの2連打に特定の処理を割り当てる（2017年11月23日追加） Emacsの&#34;control-x control-f&#34;のような2段階のキーストロークを実現する 特定のアプリでのみ（またはその反対）変換を実行する（2017年11月23日追加） IMEの状態に応じて処理を変える & IMEの状態を切り替えたい（2017年11月23日追加） マウスクリックに処理を割り当てる（2017年11月23日追加） キーボードでマウス操作を実現する（2019年2月3日追加） 文字入力を実現する（2017年11月26日追加） 2つ以上のキーの同時押しに処理を割り当てる キーの長押しに処理を割り当てる  なお、原因不明ですが、Karabiner-Elementsは、JISキーボードをUSキーボードと認識することがあります。USキーボードと認識されると、キーキャップに表示されている文字とアプリが認識する文字が異なってしまい、例えば、JISキーボードの&rdquo;[&ldquo;が&rdquo;]&ldquo;と認識されたりします。"><title>Karabiner-Elementの設定例について - Qiitaを読む</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://l7cy.github.io/Lunar-Garden//icon.png><link href=https://l7cy.github.io/Lunar-Garden/styles.cf6ade7956825901c78fb3517f51fdff.min.css rel=stylesheet><link href=https://l7cy.github.io/Lunar-Garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://l7cy.github.io/Lunar-Garden/js/darkmode.b4dbacd40120c9508b0b7656b73affe4.min.js></script>
+<script src=https://l7cy.github.io/Lunar-Garden/js/util.6f22941e242efae60fd84e7c32e874fa.min.js></script>
+<link rel=preload href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css as=style onload='this.onload=null,this.rel="stylesheet"' integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script async src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script async src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script async src=https://l7cy.github.io/Lunar-Garden/js/popover.4093681526f97c74f2b2c960debcb273.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const SEARCH_ENABLED=!1,LATEX_ENABLED=!0,PRODUCTION=!0,BASE_URL="https://l7cy.github.io/Lunar-Garden/",fetchData=Promise.all([fetch("https://l7cy.github.io/Lunar-Garden/indices/linkIndex.4fd8953f9f8c7743f47d4e4c14676339.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://l7cy.github.io/Lunar-Garden/indices/contentIndex.40d38303ee3a0ba82018e6e40500e16a.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://l7cy.github.io/Lunar-Garden",!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://l7cy.github.io/Lunar-Garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}var i=document.getElementsByClassName("mermaid");i.length>0&&import("https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs").then(e=>{e.default.init()})},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/l7cy.github.io\/Lunar-Garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://l7cy.github.io/Lunar-Garden/>Lunar Garden</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Karabiner-Elementの設定例について - Qiitaを読む</h1><p class=meta>Last updated
+Unknown</p><ul class=tags><li><a href=https://l7cy.github.io/Lunar-Garden/tags/2023/02/21/>2023 02 21</a></li></ul><p>source:
+<a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5 rel=noopener>Karabiner-Elementの設定例について - Qiita</a>
+author: s-show</p><blockquote><a href=#excerpt><h2 id=excerpt><span class=hanchor arialabel=Anchor># </span>Excerpt</h2></a><p>Karabiner-Elementsの各設定項目については、Karabiner-Elementsの各設定項目の内容についてでリファレンス的にまとめましたので、こちらの記事は、実現したい機能から設定ファイルの書き方を探せる（要は逆引き）&mldr;</p></blockquote><hr><p>この記事は最終更新日から3年以上が経過しています。</p><p>投稿日 2017年10月08日</p><p>更新日 2019年02月03日</p><p>Karabiner-Elementsの各設定項目については、
+<a href=https://qiita.com/s-show/items/a1fd228b04801477729c rel=noopener>Karabiner-Elementsの各設定項目の内容について</a>でリファレンス的にまとめましたので、こちらの記事は、実現したい機能から設定ファイルの書き方を探せる（要は逆引き）ような記事にしました。</p><p>紹介する機能は、以下のとおりです。</p><ul><li>&ldquo;control-M"のような組み合わせを別の組み合わせに変換</li><li>&ldquo;command-P"のような組み合わせを任意の単独キーに変換</li><li>&ldquo;F5"や"Escape"等の単独のキーを"control-O"のような組み合わせに変換</li><li>特定のキーを無効化する（2018年12月10日追加）</li><li>任意のキーにマウスクリックを割り当てる</li><li>任意のキーにコマンド実行を割り当てる</li><li>1回のキータイプで複数回のキータイプを実現する</li><li>単独で押した場合とshift等と組み合わせた場合で違う変換を行う</li><li>&ldquo;A"を押しながら"B"を押したら"C"に変換する</li><li>あるキーを押している間は他のキーの動作を変更する（2017年11月23日追加、2019年1月21日タイトル変更）</li><li>キーの2連打に特定の処理を割り当てる（2017年11月23日追加）</li><li>Emacsの"control-x control-f"のような2段階のキーストロークを実現する</li><li>特定のアプリでのみ（またはその反対）変換を実行する（2017年11月23日追加）</li><li>IMEの状態に応じて処理を変える & IMEの状態を切り替えたい（2017年11月23日追加）</li><li>マウスクリックに処理を割り当てる（2017年11月23日追加）</li><li>キーボードでマウス操作を実現する（2019年2月3日追加）</li><li>文字入力を実現する（2017年11月26日追加）</li><li>2つ以上のキーの同時押しに処理を割り当てる</li><li>キーの長押しに処理を割り当てる</li></ul><p>なお、原因不明ですが、Karabiner-Elementsは、JISキーボードをUSキーボードと認識することがあります。USキーボードと認識されると、キーキャップに表示されている文字とアプリが認識する文字が異なってしまい、例えば、JISキーボードの&rdquo;[&ldquo;が&rdquo;]&ldquo;と認識されたりします。</p><p>こうなった場合、頑張ってJISキーボードと認識されるようにあれこれ試してみるか、Karabiner-Elements側の認識に合わせて設定してください（私は後者の方法で対処しました）。</p><ul><li>Karabiner-Elementsのバージョン: 12.2.0</li><li>MacOSのバージョン: 10.12.6（macOS Mojave）</li></ul><p>なお、その他の設定例や、設定を楽に行う方法も記事にしていますので、そちらもあわせて確認してください。</p><p><a href=https://qiita.com/s-show/items/08a7c1b558e4d7e6f1b0 rel=noopener>Karabiner-Elementsを使ってJISキーボードの"全角/半角"でIMEを切り替える方法 - Qiita</a><br>[Karabiner-Elementsの設定項目が増えてEmacsライクな設定が楽になった - Qiita]((
+<a href=https://qiita.com/s-show/items/e83215f4ee10422abd7c rel=noopener>https://qiita.com/s-show/items/e83215f4ee10422abd7c</a>)<br><a href=https://qiita.com/s-show/items/0036e45d4b5928569dd9 rel=noopener>Karabiner-Elementsでenthumble（Windows App）のような操作を実現する方法 - Qiita</a><br><a href=https://qiita.com/s-show/items/fb788d90faba7eeb9051 rel=noopener>KE-complex_modificationsを使ってKarabiner-Elementsの設定を楽にする方法 - Qiita</a></p><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5control-me381aee38288e38186e381aae7b584e381bfe59088e3828fe3819be38292e588a5e381aee7b584e381bfe59088e3828fe3819be381abe5a489e68f9bcontrol-mのような組み合わせを別の組み合わせに変換><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#control-m%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%82%92%E5%88%A5%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E5%A4%89%E6%8F%9B rel=noopener></a>&ldquo;control-M"のような組み合わせを別の組み合わせに変換</h2><p>この設定を行う場合、<code>"from"</code>の<code>"key_code"</code>と<code>"modifiers"</code>の両方を指定します。&ldquo;control"のような装飾キーは<code>"modifiers"</code>に設定し、装飾キーと一緒に押すキー（下の例なら"PageUp&rdquo;）は<code>"key_code"</code>に設定します。</p><p>以下の例では、&ldquo;control-PageUp"を"control-shift-tab"に変換するというものです。<code>"optional"</code>にキーを指定していないため、&ldquo;control-PageUp"では変換が実行されますが、&ldquo;control-shift-PageUp"では変換が実行されません。この場合、<code>"optional"</code>に"shift"を指定すれば、&ldquo;control-shift-PageUp"でも変換されますし、&ldquo;caps_lock"を指定すれば、&ldquo;caps_lock"がオンの状態でも変換が実行されますし、&ldquo;any"を指定すれば"command"や"option"を同時に押していても変換が実行されます。</p><p>一方、<code>"to"</code>には"control-shift-tab"の組み合わせを指定します。<code>"from"</code>と同様に、&ldquo;control"と"shift"の装飾キーは<code>"modifiers"</code>に設定し、&ldquo;tab"は<code>"key_code"</code>に設定します。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;control-pageupをcontrol-shift-tabに変換&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;page_up&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;control&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;tab&#34;,
+</span></span><span class=line><span class=cl>          &#34;modifiers&#34;: [ &#34;control&#34;, &#34;shift&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5command-pe381aee38288e38186e381aae7b584e381bfe59088e3828fe3819be38292e4bbbbe6848fe381aee58d98e78bace382ade383bce381abe5a489e68f9bcommand-pのような組み合わせを任意の単独キーに変換><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#command-p%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%82%92%E4%BB%BB%E6%84%8F%E3%81%AE%E5%8D%98%E7%8B%AC%E3%82%AD%E3%83%BC%E3%81%AB%E5%A4%89%E6%8F%9B rel=noopener></a>&ldquo;command-P"のような組み合わせを任意の単独キーに変換</h2><p>この設定を行う場合、<code>"from"</code>の設定は1つの上の例と同様に設定しますが、<code>"to"</code>は<code>"key_code"</code>だけ設定すればOKです。<br>なお、&ldquo;vk_launchpad"というコードは、LaunchPadを表示させるときに設定するキーです。ほかにも、&ldquo;vk_mission_control"とか、&ldquo;vk_dashboard"といったキーが用意されています。どんなキーが用意されているかは、設定画面の「Simple Modifications」の「To Key」に表示されるキーで確認できます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;control-EscでLaunchPad表示&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;escape&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;control&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;vk_launchpad&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5f5e38284escapee7ad89e381aee58d98e78bace381aee382ade383bce38292control-oe381aee38288e38186e381aae7b584e381bfe59088e3828fe3819be381abe5a489e68f9bf5やescape等の単独のキーをcontrol-oのような組み合わせに変換><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#f5%E3%82%84escape%E7%AD%89%E3%81%AE%E5%8D%98%E7%8B%AC%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%92control-o%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AB%E5%A4%89%E6%8F%9B rel=noopener></a>&ldquo;F5"や"Escape"等の単独のキーを"control-O"のような組み合わせに変換</h2><p>この設定を行う場合、<code>"from"</code>の<code>"key_code"</code>に変換したいキーを設定すればOKです。もし、capslockのON・OFFに関わらず変換を実施したい場合、<code>"optional"</code>に"caps_lock"または"any"を設定します。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;Browser（F5 -&gt; command-r）&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;f5&#34; },
+</span></span><span class=line><span class=cl>            &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;caps_lock&#34;, &#34;fn&#34; ] },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;r&#34;,
+</span></span><span class=line><span class=cl>          &#34;modifiers&#34;: [ &#34;command&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>~/* capslockがONの状態でF5キーを押すと、なぜか"F5 + capslock + FN"キーの組み合わせになってしまうため、<code>"optional"</code>には<code>caps_lock</code>と<code>fn</code>を指定しています。~</p><p>本記事執筆当時は上記のような不具合がありましたが、現在（2018年12月10日時点）ではcapslockがONの状態で"F5"を押しても、&ldquo;F5"のみ押されたことになりますので、<code>"optional"</code>の設定は不要かもしれません。</p><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e789b9e5ae9ae381aee382ade383bce38292e784a1e58ab9e58c96e38199e3828b特定のキーを無効化する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E7%89%B9%E5%AE%9A%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%92%E7%84%A1%E5%8A%B9%E5%8C%96%E3%81%99%E3%82%8B rel=noopener></a>特定のキーを無効化する</h2><p>特定のキーを無効化する処理は、<code>"to"</code>を省略することで実現できます。</p><p>なお、この設定を行う際は、どのアプリでも無効化したいキーでない限り、<code>"conditions/bundle_identifiers"</code>オプションでアプリを限定した方が良いと思います。<code>"conditions/bundle_identifiers"</code>オプションの使い方は、下の「特定のアプリでのみ（またはその反対）変換を実行する」を読んでください。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;control-Aの無効化（CotEditor限定）&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;a&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;mandatory&#34;: [&#34;control&#34;]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;type&#34;: &#34;frontmost_application_if&#34;,
+</span></span><span class=line><span class=cl>          &#34;bundle_identifiers&#34;: [&#34;com\\.coteditor\\.CotEditor$&#34;]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e4bbbbe6848fe381aee382ade383bce381abe3839ee382a6e382b9e382afe383aae38383e382afe38292e589b2e3828ae5bd93e381a6e3828b任意のキーにマウスクリックを割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AD%E3%83%BC%E3%81%AB%E3%83%9E%E3%82%A6%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>任意のキーにマウスクリックを割り当てる</h2><p>マウスクリックを割り当てる場合、<code>"key_code"</code>の代わりに<code>"pointing_button"</code>を指定します。左右クリックとホイールクリックは次の通り指定します。</p><ul><li>左クリック -> &ldquo;button1&rdquo;</li><li>右クリック -> &ldquo;button2&rdquo;</li><li>ホイールクリック -> &ldquo;middle&rdquo;</li></ul><p>Karabiner-EventViewerで<code>"pointing_button"</code>に設定するマウスクリックの名称を調査できますので、左右クリックとホイールクリック以外を設定する場合、自分で調べて設定してください。<br>また、以下のように <code>"optional"</code>に"any"を設定すると、&ldquo;shift"や"command"等のキーを押しながら"Application"を押した場合に、それらのキーを押しながら右クリックしたのと同じ動作が実現できます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>    &#34;description&#34;: &#34;Applicationキーで右クリック&#34;,
+</span></span><span class=line><span class=cl>    &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>            &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>            &#34;from&#34;: {
+</span></span><span class=line><span class=cl>                &#34;key_code&#34;: &#34;application&#34;,
+</span></span><span class=line><span class=cl>                &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;any&#34; ] }
+</span></span><span class=line><span class=cl>            },
+</span></span><span class=line><span class=cl>            &#34;to&#34;: [
+</span></span><span class=line><span class=cl>                { &#34;pointing_button&#34;: &#34;button2&#34; }
+</span></span><span class=line><span class=cl>            ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>    ]
+</span></span><span class=line><span class=cl>}
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>    &#34;description&#34;: &#34;shift-F10で右クリック&#34;,
+</span></span><span class=line><span class=cl>    &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>            &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>            &#34;from&#34;: {
+</span></span><span class=line><span class=cl>                &#34;key_code&#34;: &#34;f10&#34;,
+</span></span><span class=line><span class=cl>                &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;shift&#34; ] }
+</span></span><span class=line><span class=cl>            },
+</span></span><span class=line><span class=cl>            &#34;to&#34;: [
+</span></span><span class=line><span class=cl>                { &#34;pointing_button&#34;: &#34;button2&#34; }
+</span></span><span class=line><span class=cl>            ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>    ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e4bbbbe6848fe381aee382ade383bce381abe382b3e3839ee383b3e38389e5ae9fe8a18ce38292e589b2e3828ae5bd93e381a6e3828b任意のキーにコマンド実行を割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E4%BB%BB%E6%84%8F%E3%81%AE%E3%82%AD%E3%83%BC%E3%81%AB%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>任意のキーにコマンド実行を割り当てる。</h2><p>この設定を行う場合、<code>"to"</code>の<code>"shell_command"</code>に実行したいコマンド文字列を設定します。コマンド文字列は、基本的にターミナルで打ち込むコマンドを"&ldquo;で囲んだ文字列になりますが、引数は"&ldquo;で囲む必要があります。<br>（例：&ldquo;shell_command&rdquo;: &ldquo;open -a &ldquo;iTunes.app&rdquo;"）</p><p><code>"shell_command"</code>に設定できるコマンドの長さは、バージョン12.2.0までは256bytedでしたが、12.2.0から32KBまで拡張されました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;command-EでFinderを開く&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;e&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;mandatory&#34;: [ &#34;command&#34; ],
+</span></span><span class=line><span class=cl>          &#34;optional&#34;: [ &#34;any&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;shell_command&#34;: &#34;open -a &#34;finder&#34;&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e4b880e59b9ee381aee382ade383bce382bfe382a4e38397e381a7e8a487e695b0e59b9ee381aee382ade383bce382bfe382a4e38397e38292e5ae9fe78fbee38199e3828b一回のキータイプで複数回のキータイプを実現する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E4%B8%80%E5%9B%9E%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%97%E3%81%A7%E8%A4%87%E6%95%B0%E5%9B%9E%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%97%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B rel=noopener></a>一回のキータイプで複数回のキータイプを実現する</h2><p>この変換を実現したい場合、<code>"to"</code>の値に複数の<code>"key_code"</code>を設定すればOKです。<br>以下の設定例は、&ldquo;Escape"を一度押すと、&ldquo;Escape"を押した後に"japanese_eisuu（英数）&ldquo;をタイプしたことにする設定です。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>    &#34;description&#34;: &#34;ESCを押したら強制的にIMEをオフにする&#34;,
+</span></span><span class=line><span class=cl>    &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>            &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>            &#34;from&#34;: {
+</span></span><span class=line><span class=cl>                &#34;key_code&#34;: &#34;escape&#34;
+</span></span><span class=line><span class=cl>            },
+</span></span><span class=line><span class=cl>            &#34;to&#34;: [
+</span></span><span class=line><span class=cl>                { &#34;key_code&#34;: &#34;escape&#34; },
+</span></span><span class=line><span class=cl>                { &#34;key_code&#34;: &#34;japanese_eisuu&#34; }
+</span></span><span class=line><span class=cl>            ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>    ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e58d98e78bace381a7e68abce38197e3819fe5a0b4e59088e381a8e7b584e381bfe59088e3828fe3819be381a7e68abce38197e3819fe5a0b4e59088e381a7e98195e38186e5a489e68f9be38292e8a18ce38186単独で押した場合と組み合わせで押した場合で違う変換を行う><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E5%8D%98%E7%8B%AC%E3%81%A7%E6%8A%BC%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%A8%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%A7%E6%8A%BC%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88%E3%81%A7%E9%81%95%E3%81%86%E5%A4%89%E6%8F%9B%E3%82%92%E8%A1%8C%E3%81%86 rel=noopener></a>単独で押した場合と組み合わせで押した場合で違う変換を行う</h2><p>この設定を行う場合、単独で押した場合と組み合わせで押した場合の挙動をそれぞれ設定する必要があります。</p><p>方法は2つあり、1つ目の方法は、<code>"to_if_alone"</code>に単独で押した場合の挙動を設定し、<code>"to"</code>に組み合わせで押した場合の挙動を設定するという方法です。&ldquo;control"や"command"キー等について、単独で押した場合に特別な動作を割り当て、他のキーと組み合わせて押した場合は"control"や"command"キーとして使う、という設定が考えられます。</p><p>2つ目の方法は、1つの<code>"description"</code>に2つの変換ルールを設定してまとめて適用するという方法です。私が設定しているのは、&ldquo;capslock"キーについて、Windowsのように、単独で押した場合は"英数"キーとして、&ldquo;shift"キーと組み合わせた場合は大文字・小文字入力の切り替えを行う"capslock"キーとして使うというものです。<br>←<br>それぞれの方法を紹介しますが、1つ目の方法は、<code>"from"</code>に設定するキーは1種類で、それを<code>"to"</code>と<code>"to_if_alone"</code>の2種類の動作に振り分ける形です。一方、2つ目の方法は、<code>"from"</code>と<code>"to"</code>の組み合わせを2種類用意することになります。目的にあった方を使ってください。</p><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e696b9e6b3951方法1><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E6%96%B9%E6%B3%951 rel=noopener></a>方法1</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;commandキー単体で押したら英数・かなキーに変換。組み合わせで押したらcommandキーとして使う。&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;left_command&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;any&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;left_command&#34;,
+</span></span><span class=line><span class=cl>          &#34;lazy&#34;: true
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;japanese_eisuu&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;right_command&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;any&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;right_command&#34;,
+</span></span><span class=line><span class=cl>          &#34;lazy&#34;: true
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;japanese_kana&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e696b9e6b3952方法2><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E6%96%B9%E6%B3%952 rel=noopener></a>方法2</h3><p>注意点として、以下のように1つの<code>"description"</code>の中に2つ以上の<code>"type"</code>を作ったのに期待した動作にならない場合、<code>"type"</code>の順番を入れ替えると期待通りに動作することがあります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;capslock単体なら英数キー、shift-capslockならcapslockのON/OFF切り替え&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;caps_lock&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;shift&#34; ], &#34;optional&#34;: [ &#34;caps_lock&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;caps_lock&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;caps_lock&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;any&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;japanese_eisuu&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5ae38292e68abce38197e381aae3818ce38289be38292e68abce38197e3819fe38289ce381abe5a489e68f9be38199e3828baを押しながらbを押したらcに変換する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#a%E3%82%92%E6%8A%BC%E3%81%97%E3%81%AA%E3%81%8C%E3%82%89b%E3%82%92%E6%8A%BC%E3%81%97%E3%81%9F%E3%82%89c%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B rel=noopener></a>&ldquo;A"を押しながら"B"を押したら"C"に変換する</h2><p>-&ndash;2017年11月19日全面書き換え&mdash;</p><p><code>"modifiers"</code>には"A"や"D"等のキーも設定できますので、例えば、&ldquo;A"を押しながら"B"を押すと"左カーソル"に変換するという設定も可能です。具体的には、次のようコードになります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;b&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;a&#34; ] }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;key_code&#34;: &#34;left_arrow&#34; }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>しかし、上記の設定では、&ldquo;A"を押してから"B"を押すまでの間、&ldquo;A"が入力され続けてしまいます。<br><code>"modifiers"</code>に"command, shift, control, option, caps_lock, fn"キーを設定した場合、設定した（例えば"fn&rdquo;）を押すと<code>FlagsChanged</code>イベントが発生して次のキー入力（&ldquo;fn-A"の"A"の部分）を待ちます。</p><p>しかし、&ldquo;A"や"D"等を指定した場合、<code>FlagsChanged</code>イベントが発生せず、そのキーが押されている状態になります。そのため、「&ldquo;A"を押してから"B"を押すまでの間、&ldquo;A"が入力され続ける」という動作になります。</p><p>2018年12月9日追記</p><p>上記の設定を実際に使った場合、ログに次のエラーが記録されますので、今後のバージョンアップで上記のような"A"キーを<code>"modifiers"</code>に指定することはできなくなるかもしれません。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&#34;complex_modifications json error: Unknown modifier: a&#34;
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e38182e3828be382ade383bce38292e68abce38197e381a6e38184e3828be99693e381afe4bb96e381aee382ade383bce381aee58b95e4bd9ce38292e5a489e69bb4e38199e3828bあるキーを押している間は他のキーの動作を変更する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%81%82%E3%82%8B%E3%82%AD%E3%83%BC%E3%82%92%E6%8A%BC%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E9%96%93%E3%81%AF%E4%BB%96%E3%81%AE%E3%82%AD%E3%83%BC%E3%81%AE%E5%8B%95%E4%BD%9C%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B rel=noopener></a>あるキーを押している間は他のキーの動作を変更する</h2><p>-&ndash;2018年12月10日全面書き換え&mdash;</p><p>この動作を実現させるには、次の2つの方法があります。</p><ol><li><code>"set_variable"</code>を使う方法</li><li>トリガーとなる最初のキー（上記設定の"A"に相当）を"fn"に変換する方法</li></ol><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5set_variablee38292e4bdbfe38186e696b9e6b395set_variableを使う方法><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#set_variable%E3%82%92%E4%BD%BF%E3%81%86%E6%96%B9%E6%B3%95 rel=noopener></a><code>"set_variable"</code>を使う方法</h3><p><code>"set_variable"</code>を使って、最初のキーを押した時点でフラグを立て、フラグが立っている間に次のキーを押すと指定した処理を行い、最初のキーから手を離したらフラグを下ろす、という処理方法です。</p><ul><li>&ldquo;PrintScreen"を押したら<code>"set_variable"</code>で<code>"printscreen_key"</code>変数に1を代入</li><li>&ldquo;PrintScreen"から手を離したら<code>"printscreen_key"</code>の値を0にする</li><li>&ldquo;P"を押した時に<code>"printscreen_key"</code>変数の値が1ならスクリーンショット撮影とプレビューアプリでの表示を行う</li><li>&ldquo;P"を押した時に<code>"printscreen_key"</code>の値が1以外なら通常どおり"P"を押したことにする</li><li>PrintScreenを押した後、他のキーを押さずに手を離したらスクリーンショットの撮影を行う。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: { &#34;key_code&#34;: &#34;print_screen&#34; },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;set_variable&#34;: { &#34;name&#34;: &#34;printscreen_key&#34;, &#34;value&#34;: 1 } }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;shell_command&#34;: &#34;screencapture ~/Desktop/screenshot-`date +%Y%m%d-%H%M%S`.png&#34; }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;to_after_key_up&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;set_variable&#34;: { &#34;name&#34;: &#34;printscreen_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;printscreen_key&#34;, &#34;value&#34;: 0 }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: { &#34;key_code&#34;: &#34;p&#34; },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;shell_command&#34;: &#34;screencapture -P ~/Desktop/screenshot-`date +%Y%m%d-%H%M%S`.png&#34; }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;printscreen_key&#34;, &#34;value&#34;: 1 }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e69c80e5889de381aee382ade383bce38292fne381abe5a489e68f9be38199e3828be696b9e6b395最初のキーをfnに変換する方法><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E6%9C%80%E5%88%9D%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%92fn%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95 rel=noopener></a>最初のキーを"fn"に変換する方法</h3><p>こちらの方法は変数管理が不要になる分、上記の方法より楽に設定できます。</p><p>最初のキーを"fn"に変換する設定を行い、次のキーについては、<code>"modifiers"</code>の<code>"mandatory"</code>に"fn"を指定して、&ldquo;fn"と一緒に押さないと変換されないように設定します。&ldquo;fn"に変換する理由は、&ldquo;shift"や"command"とは異なり、既存のショートカットキーとの衝突が避けられるためです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: { &#34;key_code&#34;: &#34;print_screen&#34; },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;key_code&#34;: &#34;fn&#34; }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;shell_command&#34;: &#34;screencapture ~/Desktop/screenshot-`date +%Y%m%d-%H%M%S`.png&#34; }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;p&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;fn&#34; ] }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;shell_command&#34;: &#34;screencapture -P ~/Desktop/screenshot-`date +%Y%m%d-%H%M%S`.png&#34; }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>この方法を応用すると、JISキーボードでほとんど使わない"無変換"キーを"fn"キー代わりに使い、&ldquo;無変換"キーと別のキーの組み合わせに色々な処理を割り当てることができます。</p><p>以下の例は、&ldquo;無変換/英数"を押している間だけ、&ldquo;スペースキー"を"Enterキー"に変換する設定です。[Karabiner-Elementsでenthumble（Windows App）のような操作を実現する方法 - Qiita]（
+<a href=https://qiita.com/s-show/items/0036e45d4b5928569dd9%EF%BC%89%E3%81%A7%E7%B4%B9%E4%BB%8B%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%AF%E3%80%81%E3%81%93%E3%81%AE%E6%96%B9%E6%B3%95%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%97%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%80%82 rel=noopener>https://qiita.com/s-show/items/0036e45d4b5928569dd9）で紹介している方法は、この方法で実現しています。</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;無変換/英数 + 「スペース/かな」で「Return/Escape」&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;spacebar&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;mandatory&#34;: [ &#34;fn&#34; ],
+</span></span><span class=line><span class=cl>          &#34;optional&#34;: [ &#34;shift&#34;, &#34;control&#34;, &#34;caps_lock&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;return_or_enter&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;international5&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;optional&#34;: [ &#34;caps_lock&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;fn&#34; }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;japanese_eisuu&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e382ade383bce381ae2e980a3e68993e381abe789b9e5ae9ae381aee587a6e79086e38292e589b2e3828ae5bd93e381a6e3828bキーの2連打に特定の処理を割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%82%AD%E3%83%BC%E3%81%AE2%E9%80%A3%E6%89%93%E3%81%AB%E7%89%B9%E5%AE%9A%E3%81%AE%E5%87%A6%E7%90%86%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>キーの2連打に特定の処理を割り当てる</h2><p>-&ndash;2017年11月19日新規追加&mdash;</p><p>次のような設定で実現します。</p><ol><li>最初のキー（shift等）を押したら<code>"set_variable"</code>を使って変数に1を代入（フラグを立てる）</li><li>次に同じキーを押した時に変数の値が1なら（フラグが立っている）、実行したい処理を行うよう設定する。</li></ol><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e5b7a6control2e980a3e68993e381a7safarie38292e8b5b7e58b95左control2連打でsafariを起動><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E5%B7%A6control2%E9%80%A3%E6%89%93%E3%81%A7safari%E3%82%92%E8%B5%B7%E5%8B%95 rel=noopener></a>左control2連打でSafariを起動</h3><p>ポイントは、2つ目の<code>"type"</code>の<code>"to"</code>で、変数に値を格納した後、<code>"key_code": "left_control"</code>を指定していることです。この設定を省略すると、左controlを左controlとして使うことができなくなります。端的に言うと、左controlを使って"ctrl-A"のようなショートカットキーを使うことができなくなります。</p><p>また、<code>"to_delayed_action"</code>の<code>"to_if_invoked"</code>と<code>"to_if_canceled"</code>を設定して、最初のキーを押してから一定の時間が経過した時と、最初のキーと違うキーを押した場合に<code>left_control_key</code>変数の値を初期化する設定も行う必要があります。<br>なお、<code>"from"</code>に"control"と入力しても、左右のcontrolをまとめて設定することはできません。左右のcontrolに同じ設定をしたい場合、それぞれのキーについて設定を行う必要があります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;左controlを2回連打したらSafariを起動する&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;left_control&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;shell_command&#34;: &#34;open -a &#34;safari&#34;&#34; }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;left_control_key&#34;, &#34;value&#34;: 1 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;left_control&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;optional&#34;: [ &#34;any&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;set_variable&#34;: { &#34;name&#34;: &#34;left_control_key&#34;, &#34;value&#34;: 1 } },
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;left_control&#34; }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_delayed_action&#34;: {
+</span></span><span class=line><span class=cl>        &#34;to_if_invoked&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;left_control_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ],
+</span></span><span class=line><span class=cl>        &#34;to_if_canceled&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;left_control_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ]
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;left_control_key&#34;, &#34;value&#34;: 0 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e38386e383b3e382ade383bce381aee38394e383aae382aae383892e980a3e68993e38292e382abe383b3e3839ee381abe5a489e68f9bテンキーのピリオド2連打をカンマに変換><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%83%86%E3%83%B3%E3%82%AD%E3%83%BC%E3%81%AE%E3%83%94%E3%83%AA%E3%82%AA%E3%83%892%E9%80%A3%E6%89%93%E3%82%92%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%AB%E5%A4%89%E6%8F%9B rel=noopener></a>テンキーのピリオド2連打をカンマに変換</h3><p>実装方法は、上記の左controlとほぼ同じですが、1つ工夫したところがあります。</p><p>それは、1回目のピリオド入力の時点で、変数に1を代入してフラグを立てた後、一度&rdquo;.&ldquo;を入力し、次にピリオドを入力したら、入力済みのピリオドを削除してからコンマを入力するようにしたことです。</p><p>これにより、&ldquo;1.0"のような入力をする際に、タイプした通りに画面に入力した内容を表示することができるようになりました。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;テンキーの&#34;.（ピリオド）&#34;2連打で&#34;,（カンマ）&#34;を入力&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;keypad_period&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        # 以下の {&#34;key_code&#34;: &#34;keypad_period&#34;} で入力された&#34;.&#34;を削除する
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;delete_or_backspace&#34; },
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;comma&#34; },
+</span></span><span class=line><span class=cl>        { &#34;set_variable&#34;: { &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 1 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;keypad_period&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;set_variable&#34;: { &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 1 } },
+</span></span><span class=line><span class=cl>        { &#34;key_code&#34;: &#34;keypad_period&#34; }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_delayed_action&#34;: {
+</span></span><span class=line><span class=cl>        &#34;to_if_invoked&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ],
+</span></span><span class=line><span class=cl>        &#34;to_if_canceled&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ]
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;press_period_key&#34;, &#34;value&#34;: 0 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5emacse381aecontrol-x-control-fe381aee38288e38186e381aa2e6aeb5e99a8ee381aee382ade383bce382b9e38388e383ade383bce382afe38292e5ae9fe78fbee38199e3828bemacsのcontrol-x-control-fのような2段階のキーストロークを実現する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#emacs%E3%81%AEcontrol-x-control-f%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA2%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%82%AD%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AD%E3%83%BC%E3%82%AF%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B rel=noopener></a>Emacsの"control-x control-f"のような2段階のキーストロークを実現する</h2><p>-&ndash;2017年11月17日全面書き換え&mdash;</p><p>Ver.11.1.12で追加された<code>to_delayed_action</code>, <code>to_if_invoked</code>, <code>to_if_canceled</code>という3つの設定項目を活用します。具体的な設定は以下のとおりです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;Two stroke key_bind&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;c&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;control&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { 
+</span></span><span class=line><span class=cl>            &#34;key_code&#34;: &#34;q&#34;,
+</span></span><span class=line><span class=cl>            &#34;modifiers&#34;: [ &#34;command&#34; ] 
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 1 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;f&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;control&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;o&#34;,
+</span></span><span class=line><span class=cl>          &#34;modifiers&#34;: [ &#34;command&#34; ]
+</span></span><span class=line><span class=cl>         }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 1 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;x&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;:
+</span></span><span class=line><span class=cl>         { &#34;mandatory&#34;: [ &#34;control&#34; ], &#34;optional&#34;: [ &#34;caps_lock&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;set_variable&#34;: { &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 1 } }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_if_alone&#34;: [
+</span></span><span class=line><span class=cl>         { &#34;key_code&#34;: &#34;x&#34; }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;to_delayed_action&#34;: {
+</span></span><span class=line><span class=cl>        &#34;to_if_invoked&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ],
+</span></span><span class=line><span class=cl>        &#34;to_if_canceled&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;set_variable&#34;: { &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 0 } }
+</span></span><span class=line><span class=cl>        ]
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;type&#34;: &#34;variable_if&#34;, &#34;name&#34;: &#34;ctrl-x&#34;, &#34;value&#34;: 0 }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>このコードは以下のとおり動作します。</p><ol><li>&ldquo;control-x"を押すと<code>ctrl-x</code>変数に2を代入する（<code>to</code>の<code>set_variable</code>が実行される）</li><li>次にタイプしたキーにより、以下の処理が行われる。<ol><li>&ldquo;control-c&rdquo; -> &ldquo;command-q"に変換</li><li>&ldquo;control-f&rdquo; -> &ldquo;command-f"に変換</li><li>上記1〜2以外 -> <code>ctrl-x</code>変数に0を代入する。（<code>to_if_canceled</code>の<code>set_variable</code>が実行される）</li></ol></li><li>&ldquo;control-x"をタイプした後、一定の時間が経過すると<code>ctrl-x</code>変数に0を代入する。（<code>to_if_invoked</code>の<code>set_variable</code>が実行される）</li></ol><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e789b9e5ae9ae381aee382a2e38397e383aae381a7e381aee381bfe381bee3819fe381afe3819de381aee58f8de5afbee5a489e68f9be38292e5ae9fe8a18ce38199e3828b特定のアプリでのみまたはその反対変換を実行する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E7%89%B9%E5%AE%9A%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%81%AE%E3%81%BF%E3%81%BE%E3%81%9F%E3%81%AF%E3%81%9D%E3%81%AE%E5%8F%8D%E5%AF%BE%E5%A4%89%E6%8F%9B%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B rel=noopener></a>特定のアプリでのみ（またはその反対）変換を実行する</h2><p>特定のアプリでのみ変換を実行したい場合、<code>"conditions"</code>の<code>"type"</code>に<code>"frontmost_application_if"</code>を設定し、あわせて<code>"bundle_identifiers"</code>でアプリを指定します。以下の例は、Safariだけで変換を実行するため、<code>"^com\\.apple\\.Safari"</code>を指定しています。<br>反対に、特定のアプリ以外で変換を実行したい場合、<code>"conditions"</code>の<code>"type"</code>に<code>"frontmost_application_unless"</code>を設定し、あわせて<code>"bundle_identifiers"</code>に変換を実行したくないアプリを指定します。</p><p><code>"bundle_identifiers"</code>に指定するアプリの名前は、&ldquo;Karabiner-EventViewer"を立ち上げてから指定したいアプリを一度選択し、また"Karabiner-EventViewer"を選択して"Frontmost Application"タブを開けば確認できます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;page_up&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;control&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;key_code&#34;: &#34;tab&#34;,
+</span></span><span class=line><span class=cl>      &#34;modifiers&#34;: [ &#34;control&#34;, &#34;shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;frontmost_application_if&#34;,
+</span></span><span class=line><span class=cl>      &#34;bundle_identifiers&#34;: [ &#34;^com\\.apple\\.Safari&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5imee381aee78ab6e6858be381abe5bf9ce38198e381a6e587a6e79086e38292e5a489e38188e3828b--imee381aee78ab6e6858be38292e58887e3828ae69bbfe38188e3819fe38184imeの状態に応じて処理を変える--imeの状態を切り替えたい><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#ime%E3%81%AE%E7%8A%B6%E6%85%8B%E3%81%AB%E5%BF%9C%E3%81%98%E3%81%A6%E5%87%A6%E7%90%86%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B--ime%E3%81%AE%E7%8A%B6%E6%85%8B%E3%82%92%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%81%9F%E3%81%84 rel=noopener></a>IMEの状態に応じて処理を変える & IMEの状態を切り替えたい</h2><p>IMEの状態に応じて処理を変える場合、<code>"conditions"</code>の<code>"type"</code>に<code>"input_sources"</code>を設定し、<code>"language"</code>でIMEの状態を指定します。また、IMEの状態をKarabiner-Elementsで直接切り替える場合、<code>"to"</code>に<code>"select_input_source"</code>を設定し、<code>"input_source_id"</code>でIMEの状態をしています。<code>"input_sources"</code>や<code>"input_source_id"</code>に指定するIMEの状態については、&ldquo;Karabiner-EventViewer"の"Variables"で確認できます。</p><p>なお、IMEの状態の切り替えについては、<code>"to"</code>に<code>"key_code": "japanese_eisuu"</code>または<code>"key_code": "japanese_kana"</code>を指定しても切り替えられます。これは、&ldquo;英数"や"かな"を押してIMEを切り替えることと同じ動作を行うものです。</p><p>以下の設定は、Windowsのように、JISキーボードの"全角/半角"をIME切り替えキーとして使う設定です。ちなみに、Karabiner-Elementsでは、JISキーボードの"全角/半角"は"grave_accent_and_tilde"と指定します。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;全角/半角でIMEのON/OFFを切り替える&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;grave_accent_and_tilde&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;select_input_source&#34;: {
+</span></span><span class=line><span class=cl>            &#34;input_source_id&#34;: &#34;^com\\.apple\\.inputmethod\\.Kotoeri\\.Japanese$&#34;
+</span></span><span class=line><span class=cl>          }
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;type&#34;: &#34;input_source_if&#34;,
+</span></span><span class=line><span class=cl>          &#34;input_sources&#34;: [
+</span></span><span class=line><span class=cl>            { &#34;language&#34;: &#34;en&#34; }
+</span></span><span class=line><span class=cl>          ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    },
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;key_code&#34;: &#34;grave_accent_and_tilde&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;select_input_source&#34;: {
+</span></span><span class=line><span class=cl>            &#34;input_source_id&#34;: &#34;^com\\.apple\\.inputmethod\\.Kotoeri\\.Roman$&#34;
+</span></span><span class=line><span class=cl>          }
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;type&#34;: &#34;input_source_if&#34;,
+</span></span><span class=line><span class=cl>          &#34;input_sources&#34;: [
+</span></span><span class=line><span class=cl>            { &#34;language&#34;: &#34;ja&#34; }
+</span></span><span class=line><span class=cl>          ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e3839ee382a6e382b9e382afe383aae38383e382afe381abe587a6e79086e38292e589b2e3828ae5bd93e381a6e3828bマウスクリックに処理を割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%83%9E%E3%82%A6%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%AB%E5%87%A6%E7%90%86%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>マウスクリックに処理を割り当てる</h2><p><code>"from"</code>に<code>"key_code"</code>ではなく<code>"pointing_button"</code>を指定すると、マウスクリックに何らかの処理を割り当てることが可能になります。</p><p>ただし、<code>"pointing_button"</code>に"button1"を指定した場合、左クリックに何らかの処理を割り当てることになりますので、左クリックが左クリックとして使用できなくなります。この点には十分注意して設定を行う必要があります。<br>なお、この処理はVer.11.2.0以降で可能となったようです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;Finderでミドルクリックをしたら新しいタブで開く&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: { &#34;pointing_button&#34;: &#34;button3&#34; },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;t&#34;,
+</span></span><span class=line><span class=cl>          &#34;modifiers&#34;: [ &#34;command&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ],
+</span></span><span class=line><span class=cl>      &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;type&#34;: &#34;frontmost_application_if&#34;,
+</span></span><span class=line><span class=cl>          &#34;bundle_identifiers&#34;: [ &#34;^com\\.apple\\.finder$&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e382ade383bce3839ce383bce38389e381a7e3839ee382a6e382b9e6938de4bd9ce38292e5ae9fe78fbee38199e3828bキーボードでマウス操作を実現する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%A7%E3%83%9E%E3%82%A6%E3%82%B9%E6%93%8D%E4%BD%9C%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B rel=noopener></a>キーボードでマウス操作を実現する</h2><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e3839ee382a6e382b9e382abe383bce382bde383abe381aee7a7bbe58b95e381a8e3839be382a4e383bce383abe382b9e382afe383ade383bce383abe381aee5ae9fe78fbeマウスカーソルの移動とホイールスクロールの実現><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%83%9E%E3%82%A6%E3%82%B9%E3%82%AB%E3%83%BC%E3%82%BD%E3%83%AB%E3%81%AE%E7%A7%BB%E5%8B%95%E3%81%A8%E3%83%9B%E3%82%A4%E3%83%BC%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB%E3%81%AE%E5%AE%9F%E7%8F%BE rel=noopener></a>マウスカーソルの移動とホイールスクロールの実現</h3><p>キーボード操作でマウスカーソルやホイールスクロールの操作を行うことも可能です。</p><p>以下の設定例は、&ldquo;右Shift-WSAD"でカーソルの上下左右の移動を、&ldquo;右Shift-RV"で上下のホイールスクロールを実現させるというものです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;w&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;y&#34;: -1536 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;a&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;x&#34;: -1536 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;s&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;y&#34;: 1536 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;d&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;x&#34;: 1536 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;r&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;vertical_wheel&#34;: -32 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>},
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: {
+</span></span><span class=line><span class=cl>    &#34;key_code&#34;: &#34;v&#34;,
+</span></span><span class=line><span class=cl>    &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>      &#34;mandatory&#34;: [ &#34;right_shift&#34; ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;mouse_key&#34;: { &#34;vertical_wheel&#34;: 32 } }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e38380e38396e383abe382afe383aae38383e382afe38292e5ae9fe78fbee38199e3828bダブルクリックを実現する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%83%80%E3%83%96%E3%83%AB%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B rel=noopener></a>ダブルクリックを実現する</h3><p>以下のの設定のように<code>"to"</code>に<code>"pointing_button": "button1"</code>を2つ連続で設定するとダブルクリックを再現できるようです。</p><p>以下の設定は、Finderでファイルを選択してEnterを押すとWindowsと同様にファイルが開くようにするものです。</p><p>注意点は、マウスカーソルが他のファイルの上にあると、そちらのファイルの方が開かれてしまうということです。つまり、ファイルを選択しているという状態を無視して、その時のマウスカーソルがある場所でダブルクリックを行ったことになるということです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>  &#34;from&#34;: { &#34;key_code&#34;: &#34;return_or_enter&#34; },
+</span></span><span class=line><span class=cl>  &#34;to&#34;: [
+</span></span><span class=line><span class=cl>    { &#34;pointing_button&#34;: &#34;button1&#34; },
+</span></span><span class=line><span class=cl>    { &#34;pointing_button&#34;: &#34;button1&#34; }
+</span></span><span class=line><span class=cl>  ],
+</span></span><span class=line><span class=cl>  &#34;conditions&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;frontmost_application_if&#34;,
+</span></span><span class=line><span class=cl>      &#34;bundle_identifiers&#34;: [
+</span></span><span class=line><span class=cl>        &#34;^com\\.apple\\.finder$&#34;
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e69687e5ad97e585a5e58a9be38292e5ae9fe78fbee38199e3828b文字入力を実現する><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E6%96%87%E5%AD%97%E5%85%A5%E5%8A%9B%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B rel=noopener></a>文字入力を実現する</h2><p>Karabiner-Elementsに文字入力の機能はありませんが、<code>"shell_command"</code>を使って次のような手順を実行すると、擬似的に文字入力を実現することができます。</p><ol><li>AppleScriptを実行して入力したい文字列をクリップボードに格納する</li><li>AppleScriptのキー入力実現機能を使って貼り付けコマンド（command-V）を実行する</li></ol><p>AppleScriptで、クリップボードに文字を格納して貼り付けするコマンドは次の通りですので、このコマンド文字列を<code>"shell_command"</code>に指定すれば文字入力が実現できます。なお、<code>"shell_command"</code>に指定するコマンド文字列は<code>"</code>で囲む必要がありますが、元のコマンド文字列に<code>"</code>が含まれている場合、<code>"</code>を<code>\</code>でエスケープ処理する必要があります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># クリップボードに文字を格納
+</span></span><span class=line><span class=cl>osascript -e &#34;set the clipboard to &#34;←&#34;&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># クリップボードのデータを貼り付け
+</span></span><span class=line><span class=cl>osascript -e &#34;tell application &#34;System Events&#34; to keystroke &#34;v&#34; using command down&#34;
+</span></span></code></pre></td></tr></table></div></div><p>上記のコマンドを使って、&ldquo;fn-左矢印"で"←"を入力するという設定は次のようになります。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;&#34;fn-左矢印&#34;で&#34;←&#34;入力&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;left_arrow&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;mandatory&#34;: [ &#34;fn&#34; ],
+</span></span><span class=line><span class=cl>          &#34;optional&#34;: [ &#34;caps_lock&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;shell_command&#34;: &#34;osascript -e &#34;set the clipboard to \&#34;←\&#34;&#34;&#34; },
+</span></span><span class=line><span class=cl>        {
+</span></span><span class=line><span class=cl>          &#34;shell_command&#34;: &#34;osascript -e &#34;tell application \&#34;System Events\&#34; to keystroke \&#34;v\&#34; using command down&#34;&#34;
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>なお、上記の設定の注意点は、&ldquo;fn-左矢印"を押してから"←"が入力されるまで、体感で0.5秒くらい待たされるということです。そのため、&ldquo;fn-左矢印"を押してすぐ"A"とかを押すと、&ldquo;A"が入力されてから"←"が入力されたりします。</p><p>AppleScriptの動作が早ければこういう問題も起きないのですが、現状では仕様と思ってあきらめるしかありません。</p><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad52e381a4e4bba5e4b88ae381aee382ade383bce381aee5908ce69982e68abce38197e381abe587a6e79086e38292e589b2e3828ae5bd93e381a6e3828b2つ以上のキーの同時押しに処理を割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#2%E3%81%A4%E4%BB%A5%E4%B8%8A%E3%81%AE%E3%82%AD%E3%83%BC%E3%81%AE%E5%90%8C%E6%99%82%E6%8A%BC%E3%81%97%E3%81%AB%E5%87%A6%E7%90%86%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>2つ以上のキーの同時押しに処理を割り当てる</h2><p>2つ以上のキーの同時押しに処理を割り当てる場合、<code>"from"</code>の<code>"simultaneous"</code>に処理を割り当てたいキーを列挙します。</p><p>同時押しと判定される時間は、デフォルトでは50ミリ秒です。以下の設定は、&ldquo;S, D, F"を同時に押すとランチャーアプリの"Alfred"が起動するというものですが、厳密に"S, D, F"を同時に押さなくても、50ミリ秒以内に"S → D →F"の順番で押しても"Alfred"が起動します。</p><p>もし、同時押しと認識される時間を変更したい場合、設定画面の「Complex Modifications / Parameters / simultaneous_threshold_milliseconds」に設定されている時間を変更します。</p><p>なお、同時押しはオプションが多い設定項目です。オプションを1つずつ紹介すると結構なボリュームになりますので、詳細は、
+<a href=https://qiita.com/s-show/items/a1fd228b04801477729c#fromsimultaneoussimultaneous_options rel=noopener>私が書いた記事</a>で確認してください。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;S,D,Fの同時押しでAlfred起動&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;simultaneous&#34;: [
+</span></span><span class=line><span class=cl>          { &#34;key_code&#34;: &#34;s&#34; },
+</span></span><span class=line><span class=cl>          { &#34;key_code&#34;: &#34;d&#34; },
+</span></span><span class=line><span class=cl>          { &#34;key_code&#34;: &#34;f&#34; }
+</span></span><span class=line><span class=cl>        ],
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: {
+</span></span><span class=line><span class=cl>          &#34;optional&#34;: [ &#34;any&#34; ]
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;to&#34;: [
+</span></span><span class=line><span class=cl>        { &#34;shell_command&#34;: &#34;open -a &#39;Alfred 3.app&#39;&#34; }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e382ade383bce381aee995b7e68abce38197e381abe587a6e79086e38292e589b2e3828ae5bd93e381a6e3828bキーの長押しに処理を割り当てる><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E3%82%AD%E3%83%BC%E3%81%AE%E9%95%B7%E6%8A%BC%E3%81%97%E3%81%AB%E5%87%A6%E7%90%86%E3%82%92%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6%E3%82%8B rel=noopener></a>キーの長押しに処理を割り当てる</h2><p>キーの長押しに処理を割り当てる場合、長押しということで<code>"from"</code>側に設定すると思われるかもしれませんが、<code>"to_if_held_down"</code>に割り当てたい処理を記述します。</p><p>長押しと判定されるまでの時間は、デフォルトで500ミリ秒です。もし、長押しと判定されるまでの時間を変更したい場合は、<code>"parameters"</code>の<code>"basic.to_if_held_down_threshold_milliseconds"</code>に設定すれば、設定毎に時間を指定できます。</p><p>この設定を行う場合の注意点は、実行したい処理は1回だけ実行すれば良いのか、それとも連続して実行させる必要があるのかを決めておく必要があります。</p><p>例えば、次の設定はcommand-Qを1秒間押し続けないとcommand-Qが実行されないという設定です。この設定で<code>"repeat"</code>に<code>false</code>を設定していない場合、command-Qを1秒間長押ししてから手を離すまで、command-Qが連続して実行されてアプリがどんどん終了します。そうした事態を避けるため、<code>"repeat"</code>に<code>false</code>を指定して、処理の実行を1回に限定しています。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  &#34;description&#34;: &#34;１秒間押し続けないとcommand-qが実行されない設定&#34;,
+</span></span><span class=line><span class=cl>  &#34;manipulators&#34;: [
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>      &#34;type&#34;: &#34;basic&#34;,
+</span></span><span class=line><span class=cl>      &#34;from&#34;: {
+</span></span><span class=line><span class=cl>        &#34;key_code&#34;: &#34;q&#34;,
+</span></span><span class=line><span class=cl>        &#34;modifiers&#34;: { &#34;mandatory&#34;: [ &#34;command&#34; ], &#34;optional&#34;: [ &#34;caps_lock&#34; ] }
+</span></span><span class=line><span class=cl>      },
+</span></span><span class=line><span class=cl>      &#34;parameters&#34;: { &#34;basic.to_if_held_down_threshold_milliseconds&#34;: 1000 },
+</span></span><span class=line><span class=cl>      &#34;to_if_held_down&#34;: [
+</span></span><span class=line><span class=cl>        { 
+</span></span><span class=line><span class=cl>          &#34;key_code&#34;: &#34;q&#34;,
+</span></span><span class=line><span class=cl>          &#34;modifiers&#34;: [ &#34;command&#34; ],
+</span></span><span class=line><span class=cl>          &#34;repeat&#34;: false
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>      ]
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>  ]
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=httpsqiitacoms-showitems40ad22c4ee4a0465fad5e8a39ce8b6b3補足><a href=https://qiita.com/s-show/items/40ad22c4ee4a0465fad5#%E8%A3%9C%E8%B6%B3 rel=noopener></a>補足</h2><p>最後になりましたが、私の設定を公開していますので、よろしければ参考にしてください。<br>[s-show/KE-complex_modifications]（
+<a href=https://github.com/s-show/KE-complex_modifications/%EF%BC%89 rel=noopener>https://github.com/s-show/KE-complex_modifications/）</a></p><p>また、こちらのページから、私の設定をKarabiner-Elementsにimportできます。<br>[Karabiner-Elements complex_modifications rules by s-show]（
+<a href=https://s-show.github.io/KE-complex_modifications/%EF%BC%89 rel=noopener>https://s-show.github.io/KE-complex_modifications/）</a></p><p>なお、[pqrs-org/KE-complex_modifications]（
+<a href=https://github.com/pqrs-org/KE-complex_modifications%EF%BC%89%E3%81%A7%E9%85%8D%E5%B8%83%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%84%E3%83%BC%E3%83%AB%E3%82%92%E4%BD%BF%E3%81%84%E3%81%BE%E3%81%99%E3%81%A8%E3%80%81Karabiner-Elements%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%AE%E3%81%8C%E6%A5%BD%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82 rel=noopener>https://github.com/pqrs-org/KE-complex_modifications）で配布されているツールを使いますと、Karabiner-Elementsの設定ファイルを書くのが楽になります。</a><br>このツールの使い方については、[KE-complex_modificationsを使ってKarabiner-Elementsの定義を色々作って公開する]（<br><a href=https://rcmdnk.com/blog/2017/08/30/computer-mac-karabiner/%EF%BC%89%E3%81%A7%E8%A9%B3%E3%81%97%E3%81%8F%E8%A7%A3%E8%AA%AC%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%80%82%E7%A7%81%E3%82%82%5BKE-complex_modifications%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6Karabiner-Elements%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E6%A5%BD%E3%81%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95 rel=noopener>https://rcmdnk.com/blog/2017/08/30/computer-mac-karabiner/）で詳しく解説されています。私も[KE-complex_modificationsを使ってKarabiner-Elementsの設定を楽にする方法</a> - Qiita]（
+<a href=https://qiita.com/s-show/items/fb788d90faba7eeb9051%EF%BC%89%E3%81%A8%E3%81%84%E3%81%86%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%81%AE%E3%81%A7%E3%80%81%E5%8F%82%E8%80%83%E3%81%AB%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82%E5%89%8D%E8%80%85%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%A7%E3%81%AF%E3%80%81Karabiner-Elements%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%A7%E5%BD%B9%E3%81%AB%E7%AB%8B%E3%81%A4%E6%83%85%E5%A0%B1%E3%81%8C%E8%89%B2%E3%80%85%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%81%AE%E3%81%A7%E3%80%81%E9%9D%9E%E5%B8%B8%E3%81%AB%E5%8F%82%E8%80%83%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%A8%E6%80%9D%E3%81%84%E3%81%BE%E3%81%99%E3%80%82 rel=noopener>https://qiita.com/s-show/items/fb788d90faba7eeb9051）という記事を書いていますので、参考にしてください。前者の記事では、Karabiner-Elementsの設定で役に立つ情報が色々ありますので、非常に参考になると思います。</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/Lunar-Garden/karabiner%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E7%9B%B4%E3%81%99/ data-ctx="Karabiner-Elementの設定例について - Qiitaを読む" data-src=/karabiner%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E7%9B%B4%E3%81%99 class=internal-link>karabinerの設定を見直す</a></li></ul></div><div style=display:none><script async src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://l7cy.github.io/Lunar-Garden/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js></script></div></div><div id=contact_buttons><footer><p>Made by L7Cy using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://l7cy.github.io/Lunar-Garden/>Home</a></li><li><a href=https://twitter.com/>Twitter</a></li><li><a href=https://github.com/L7Cy>GitHub</a></li></ul></footer></div></div></body></html>

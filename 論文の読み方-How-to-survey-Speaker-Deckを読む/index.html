@@ -1,0 +1,116 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="source: 論文の読み方 / How to survey - Speaker Deck author:
+ Excerpt 新入生向けの資料
+  Transcript   [1 論文の読み方 慶應義塾大学理工学部物理情報工学科 渡辺 2023/02/16]( https://files."><title>論文の読み方 How to survey - Speaker Deckを読む</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://l7cy.github.io/Lunar-Garden//icon.png><link href=https://l7cy.github.io/Lunar-Garden/styles.cf6ade7956825901c78fb3517f51fdff.min.css rel=stylesheet><link href=https://l7cy.github.io/Lunar-Garden/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://l7cy.github.io/Lunar-Garden/js/darkmode.b4dbacd40120c9508b0b7656b73affe4.min.js></script>
+<script src=https://l7cy.github.io/Lunar-Garden/js/util.6f22941e242efae60fd84e7c32e874fa.min.js></script>
+<link rel=preload href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css as=style onload='this.onload=null,this.rel="stylesheet"' integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script async src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script async src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script async src=https://l7cy.github.io/Lunar-Garden/js/popover.4093681526f97c74f2b2c960debcb273.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const SEARCH_ENABLED=!1,LATEX_ENABLED=!0,PRODUCTION=!0,BASE_URL="https://l7cy.github.io/Lunar-Garden/",fetchData=Promise.all([fetch("https://l7cy.github.io/Lunar-Garden/indices/linkIndex.4fd8953f9f8c7743f47d4e4c14676339.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://l7cy.github.io/Lunar-Garden/indices/contentIndex.40d38303ee3a0ba82018e6e40500e16a.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://l7cy.github.io/Lunar-Garden",!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://l7cy.github.io/Lunar-Garden",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}var i=document.getElementsByClassName("mermaid");i.length>0&&import("https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs").then(e=>{e.default.init()})},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/l7cy.github.io\/Lunar-Garden\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://l7cy.github.io/Lunar-Garden/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://l7cy.github.io/Lunar-Garden/>Lunar Garden</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>論文の読み方 How to survey - Speaker Deckを読む</h1><p class=meta>Last updated
+Unknown</p><ul class=tags><li><a href=https://l7cy.github.io/Lunar-Garden/tags/2023/02/20/>2023 02 20</a></li></ul><p>source:
+<a href=https://speakerdeck.com/kaityo256/how-to-survey rel=noopener>論文の読み方 / How to survey - Speaker Deck</a>
+author:</p><blockquote><a href=#excerpt><h2 id=excerpt><span class=hanchor arialabel=Anchor># </span>Excerpt</h2></a><p>新入生向けの資料</p></blockquote><hr><a href=#transcript><h2 id=transcript><span class=hanchor arialabel=Anchor># </span>Transcript</h2></a><ol><li><h3 id=1-論文の読み方-慶應義塾大学理工学部物理情報工学科-渡辺-20230216httpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_0jpg-論文の読み方--how-to-survey-1>[1 論文の読み方 慶應義塾大学理工学部物理情報工学科 渡辺 2023/02/16](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_0.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_0.jpg</a> &ldquo;論文の読み方 / How to survey 1</h3><p>論文の読み方
+慶應義塾大学理工学部物理情報工学科
+渡辺
+2023/02/16
+&ldquo;)</p></li><li><h3 id=2-指導教員にこの論文読んでみてと言われた-まずやるべきことは-その論文を熟読して内容を理解する-その論文の研究上の位置づけを調べるhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_1jpg-論文の読み方--how-to-survey-2>[2 指導教員に「この論文読んでみて」と言われた →まずやるべきことは？ その論文を熟読して内容を理解する その論文の研究上の位置づけを調べる](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_1.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_1.jpg</a> &ldquo;論文の読み方 / How to survey 2</h3><p>指導教員に「この論文読んでみて」と言われた
+→まずやるべきことは？
+その論文を熟読して内容&mldr;&rdquo;)</p></li><li><h3 id=3-把握すべきこと--起点となる研究祖先はどれか--他にはどのようなアプローチがあるか--直接の親となる論文はどれか-特に他にどのようなアプローチがあるかは必ず聞かれるので把握しておくhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_2jpg-論文の読み方--how-to-survey-3>[3 把握すべきこと • 起点となる研究(祖先)はどれか • 他にはどのようなアプローチがあるか • 直接の「親」となる論文はどれか 特に「他にどのようなアプローチがあるか」は必ず聞かれるので把握しておく](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_2.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_2.jpg</a> &ldquo;論文の読み方 / How to survey 3</h3><p>把握すべきこと
+• 起点となる研究(祖先)はどれか
+• 他にはどのようなアプローチがあるか&mldr;&rdquo;)</p></li><li><h3 id=4-研究には流れがある-時間-画期的な論文-大量のフォロワーが現れる-停滞期-画期的な論文-大量のフォロワーが現れる-読めと言われた論文httpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_3jpg-論文の読み方--how-to-survey-4>[4 研究には「流れ」がある 時間 画期的な論文 大量のフォロワーが現れる 停滞期 画期的な論文 大量のフォロワーが現れる 読めと言われた論文](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_3.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_3.jpg</a> &ldquo;論文の読み方 / How to survey 4</h3><p>研究には「流れ」がある
+時間
+画期的な論文
+大量のフォロワーが現れる
+停滞期
+画期的な論文&mldr;&rdquo;)</p></li><li><h3 id=5-問題提起となる研究-この問題を-aという方法で-解決を試みる-bという方法で-解決を試みる-読めと言われた論文-研究には様々なアプローチがあるhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_4jpg-論文の読み方--how-to-survey-5>[5 問題提起となる研究 この問題を…… Aという方法で 解決を試みる Bという方法で 解決を試みる 読めと言われた論文 研究には様々なアプローチがある](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_4.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_4.jpg</a> &ldquo;論文の読み方 / How to survey 5</h3><p>問題提起となる研究
+この問題を……
+Aという方法で
+解決を試みる
+Bという方法で
+解決を試&mldr;&rdquo;)</p></li><li><h3 id=6-何かはじまりとなる研究があり-様々なアプローチがなされるが-その中でbというアプローチがあり-アプローチbの中でbという提案をした-読めと言われた論文httpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_5jpg-論文の読み方--how-to-survey-6>[6 何か「はじまり」となる研究があり 様々なアプローチがなされるが その中でBというアプローチがあり アプローチBの中でB’という提案をした 読めと言われた論文](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_5.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_5.jpg</a> &ldquo;論文の読み方 / How to survey 6</h3><p>何か「はじまり」となる研究があり
+様々なアプローチがなされるが
+その中でBというアプローチ&mldr;&rdquo;)</p></li><li><h3 id=7-読めと言われた論文-起点-他のアプローチ-直接の親一般的には複数-把握すべきこと--起点となる研究祖先はどれか--他にはどのようなアプローチがあるかhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_6jpg-論文の読み方--how-to-survey-7>[7 読めと言われた論文 起点 他のアプローチ 直接の親(一般的には複数) 把握すべきこと • 起点となる研究(祖先)はどれか • 他にはどのようなアプローチがあるか](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_6.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_6.jpg</a> &ldquo;論文の読み方 / How to survey 7</h3><p>読めと言われた論文
+起点
+他のアプローチ
+直接の親(一般的には複数)
+把握すべきこと
+• &mldr;&rdquo;)</p><p>• 直接の「親」となる論文はどれか 最終的に↑こんなイメージをつかみたい</p></li><li><h3 id=8-タイトル-概要-abstract-本文-手法-結果-考察-結論-参考文献httpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_7jpg-論文の読み方--how-to-survey-8>[8 タイトル 概要 (abstract) 本文 手法 結果 考察 結論 参考文献](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_7.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_7.jpg</a> &ldquo;論文の読み方 / How to survey 8</h3><p>タイトル
+概要 (abstract)
+本文
+手法
+結果
+考察
+結論
+参考文献
+※流儀はいろ&mldr;&rdquo;)</p><p>※流儀はいろいろあるので、あくまで一例です まずここを読む 導入(introduction)</p></li><li><h3 id=9-広く抽象的な話から-狭く具体的な話へhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_8jpg-論文の読み方--how-to-survey-9>[9 広く抽象的な話から 狭く具体的な話へ](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_8.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_8.jpg</a> &ldquo;論文の読み方 / How to survey 9</h3><p>広く抽象的な話から
+狭く具体的な話へ
+&ldquo;)</p></li><li><h3 id=10-手法-結果-考察-結論-導入introduction-なぜこの手法分野が大事か-全体の背景-研究背景-これまでにどのような研究がhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_9jpg-論文の読み方--how-to-survey-10>[10 手法 結果 考察 結論 導入(introduction) なぜこの手法/分野が大事か 全体の背景 研究背景 これまでにどのような研究が](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_9.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_9.jpg</a> &ldquo;論文の読み方 / How to survey 10</h3></li></ol><pre><code>手法
+結果
+考察
+結論
+導入(introduction)
+なぜこの手法/分野が大事か
+全...&quot;)
+
+行われ、何が解決され、何が 未解決問題として残っているか 研究概要 ※流儀はいろいろあるので、あくまで一例です 以上の流れを受けて、この 研究では何を目的として何を やるか
+</code></pre><ol start=11><li><h3 id=11-k-shiina-h-mori-y-okabe-and-h-k-leehttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_10jpg-論文の読み方--how-to-survey-11>[11 K. Shiina, H. Mori, Y. Okabe, and H.-K. Lee,](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_10.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_10.jpg</a> &ldquo;論文の読み方 / How to survey 11</h3></li></ol><pre><code>K. Shiina, H. Mori, Y. Okabe, and H.-K. Lee,...&quot;)
+
+Sci. Rep. 10, 2177 (2020) 実際の論文のIntroductionを見てみる 全体の背景 研究背景 研究概要 Machine-Learning Studies on Spin Models
+</code></pre><ol start=12><li><h3 id=12-全体の背景-論文の冒頭でこの手法や分野の重要性を説明する-numerical-simulations-such-as-monte-carlo-methodshttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_11jpg-論文の読み方--how-to-survey-12>[12 全体の背景 論文の冒頭で、この手法や分野の重要性を説明する Numerical simulations, such as Monte Carlo methods,](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_11.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_11.jpg</a> &ldquo;論文の読み方 / How to survey 12</h3></li></ol><pre><code>全体の背景
+論文の冒頭で、この手法や分野の重要性を説明する
+Numerical simu...&quot;)
+
+have been successfully employed in the study of phase transitions and critical phenomena \[1\]. モンテカルロ法などの数値シミュレーションは、相転移や臨界現象の研究で 広く使われており、成功を収めている。 冒頭で一番最初に単独で引用されるのは、その分野の有名な教科書や、レビュー 論文であることが多い \[1\] D. P. Landau &amp; K. Binder A Guide to Monte Carlo Simulations in Statistical Physics, 4th edition, (Cambridge University Press, Cambridge, 2014).
+</code></pre><ol start=13><li><h3 id=13-研究背景--どのような研究が行われ--何が解決され--何が未解決問題として残っているか-これまでに-関連研究がまとめて紹介されることが多いhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_12jpg-論文の読み方--how-to-survey-13>[13 研究背景 • どのような研究が行われ • 何が解決され • 何が未解決問題として残っているか これまでに 関連研究がまとめて紹介されることが多い](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_12.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_12.jpg</a> &ldquo;論文の読み方 / How to survey 13</h3></li></ol><pre><code>研究背景
+• どのような研究が行われ
+• 何が解決され
+• 何が未解決問題として残ってい...&quot;)
+
+「recently」というキーワードが使われることが多い 続けて、まとめて引用されたうちいくつかを紹介することも ここに「while」があると、未解決部分の説明があることが多い Several spin models have recently been studied through machine learning \[2-6\]. 最近、いくつかのスピン系が機械学習により研究されている。 ※流儀はいろいろあるので、あくまで(略)
+</code></pre><ol start=14><li><h3 id=14-研究概要-この研究では何を目的として何をやるか-本研究ではcarrasquillaとmelkoが提案した手法を拡張一般化する-in-this-study-we-extend-andhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_13jpg-論文の読み方--how-to-survey-14>[14 研究概要 この研究では何を目的として何をやるか 本研究では、CarrasquillaとMelkoが提案した手法を拡張、一般化する。 In this study, we extend and](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_13.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_13.jpg</a> &ldquo;論文の読み方 / How to survey 14</h3></li></ol><pre><code>研究概要
+この研究では何を目的として何をやるか
+本研究では、CarrasquillaとM...&quot;)
+
+generalize the method proposed by Carrasquilla and Melko \[2\]. 「In this study」や「We」というキーワードが使われることが多い 最後に論文の構造を説明することが多い ここで、「直接の親」が Carrasquilla and Melko \[2\]であることがわかる (一般的には「研究背景」に「親」の記述があることが多い) ※流儀はいろいろ (略)
+</code></pre><ol start=15><li><h3 id=15-1-まずイントロダクションを読む-2-関連論文にあたりをつける-3-関連論文をダウンロードする-4-収束するまで13を繰り返す-その論文を熟読して内容を理解するhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_14jpg-論文の読み方--how-to-survey-15>[15 1. まずイントロダクションを読む 2. 関連論文にあたりをつける 3. 関連論文をダウンロードする 4. 収束するまで1～3を繰り返す その論文を熟読して内容を理解する](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_14.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_14.jpg</a> &ldquo;論文の読み方 / How to survey 15</h3></li></ol><pre><code>1. まずイントロダクションを読む
+2. 関連論文にあたりをつける
+3. 関連論文をダウ...&quot;)
+
+その論文の研究上の位置づけを調べる 収束：「あ、この論文読んだな」の出現確率が一定以上高くなること
+</code></pre><ol start=16><li><h3 id=16--多くの論文から冒頭で引用されているレビュー-論文は一度読んでみると良い--dlした論文は読まなくても保存しておく-文献管理ソフトウェア例えばmendeley等を活用-文献管理ソフトウェアmendeley-httpswwwmendeleycomhttpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_15jpg-論文の読み方--how-to-survey-16>[16 • 多くの論文から「冒頭」で引用されているレビュー 論文は一度読んでみると良い • DLした論文は(読まなくても)保存しておく →文献管理ソフトウェア(例えばMendeley等)を活用 文献管理ソフトウェア「Mendeley」 https://www.mendeley.com/](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_15.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_15.jpg</a> &ldquo;論文の読み方 / How to survey 16</h3></li></ol><pre><code>• 多くの論文から「冒頭」で引用されているレビュー
+論文は一度読んでみると良い
+• DL...&quot;)
+</code></pre><ol start=17><li><h3 id=17--この論文読んでみてと言われたら-その論文の引用文献も読む--どの引用文献を読むべきかはイントロで-あたりをつける--必要に応じて引用文献の引用文献も読む-論文の引用文献引用文献の引用文献httpsfilesspeakerdeckcompresentations93423ae62d4040a9a7c313b4bec50b7cslide_16jpg-論文の読み方--how-to-survey-17>[17 • 「この論文読んでみて」と言われたら、 その論文の引用文献も読む • どの引用文献を読むべきかは、イントロで あたりをつける • 必要に応じて、引用文献の引用文献も読む 論文の引用文献、引用文献の引用文献……](
+<a href=https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_16.jpg rel=noopener>https://files.speakerdeck.com/presentations/93423ae62d4040a9a7c313b4bec50b7c/slide_16.jpg</a> &ldquo;論文の読み方 / How to survey 17</h3></li></ol><pre><code>• 「この論文読んでみて」と言われたら、
+その論文の引用文献も読む
+• どの引用文献を読...&quot;)
+
+際限なく「読むべき論文」が増えていきま すが、がんばりましょう ※慣れない分野の論文を一編だけ読んで理解するのは不可能
+</code></pre><p><a class="internal-link broken">やれたらやる</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div style=display:none><script async src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://l7cy.github.io/Lunar-Garden/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js></script></div></div><div id=contact_buttons><footer><p>Made by L7Cy using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://l7cy.github.io/Lunar-Garden/>Home</a></li><li><a href=https://twitter.com/>Twitter</a></li><li><a href=https://github.com/L7Cy>GitHub</a></li></ul></footer></div></div></body></html>
