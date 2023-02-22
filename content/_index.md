@@ -1,4 +1,5 @@
 ---
+title: _index
 title: Home
 enableToc: false
 ---
