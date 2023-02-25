@@ -4,7 +4,10 @@ tags: [2023/02/13]
 aliases: []
 ---
 
-反実仮想説明により，ユーザが次にとるべき行動を提示する手法
+- [[反実仮想説明]]を生成するアルゴリズム
+- またはそれが実装された[[Python]]のライブラリ
+- [[DiCEを実行してみる]]
+
 ## 文献
 [[Open-source library provides explanation for machine learning through diverse counterfactuals - Microsoft Researchを読む]]
 [GitHub - interpretml/DiCE: Generate Diverse Counterfactual Explanations for any machine learning model.](https://github.com/interpretml/DiCE)
