@@ -7,5 +7,5 @@ aliases: []
 [[obsidianのプラグイン]]
 [[調べごと]]
 # Why
-[[obsidianでやることを管理する]]
+[[obsidianでやることを管理する方法を確立する]]
 # Next Action

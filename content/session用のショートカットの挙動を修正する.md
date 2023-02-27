@@ -5,3 +5,5 @@ aliases: []
 ---
 
 jump to link発動時にsaveするようにした
+
+[[やれたらやる]]
